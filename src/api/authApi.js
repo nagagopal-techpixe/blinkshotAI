@@ -15,7 +15,7 @@ api.interceptors.request.use((config) => {
 
 // Auth helpers
 export const saveAuth = (token, user) => {
-  localStorage.setItem("lumina_token", token); // ✅ FIXED
+  localStorage.setItem("lumina_token", token); //  FIXED
   localStorage.setItem("user", JSON.stringify(user));
 };
 

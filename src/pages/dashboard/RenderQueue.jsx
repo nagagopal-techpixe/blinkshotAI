@@ -10,7 +10,7 @@ export default function RenderQueue() {
       <div className="flex items-center justify-between mb-4 lg:mb-5">
         <h2 className="text-white text-base lg:text-lg font-bold">Render Queue</h2>
         <button style={{ color: "#8D45FE" }} className="text-sm font-semibold hover:opacity-80 transition-opacity">
-          View all
+      view all
         </button>
       </div>
       <div className="flex flex-col gap-4 lg:gap-5">

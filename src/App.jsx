@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import AuthLayout           from "./components/AuthLayout.jsx";
 import DashboardLayout      from "./components/DashboardLayout.jsx";
 import Login                from "./pages/auth/Login.jsx";
@@ -8,6 +8,7 @@ import Projects             from "./pages/projects/Projects.jsx";
 import ProjectDetail        from "./pages/projects/ProjectDetail.jsx";
 import Create               from "./pages/create/Create.jsx";
 import Templates            from "./pages/templates/Templates.jsx";
+import TemplateEditor       from "./pages/templates/TemplateEditor.jsx";
 import PhotoEditor          from "./pages/photo-editor/PhotoEditor.jsx";
 import ReelEditor           from "./pages/reel-editor/ReelEditor.jsx";
 import Team                 from "./pages/team/Team.jsx";
@@ -22,12 +23,17 @@ import APIIntegrations      from "./pages/profile/APIIntegrations.jsx";
 import NotificationSettings from "./pages/profile/NotificationSettings.jsx";
 import Security             from "./pages/profile/Security.jsx";
 import TwoFactor            from "./pages/profile/TwoFactor.jsx";
-import GlowBackground from "./components/GlowBackground.jsx";
-
+import GlowBackground       from "./components/GlowBackground.jsx";
+import GlobalTemplates from "./pages/templates/GlobalTemplates.jsx";
 export default function App() {
+  const location = useLocation();
+
+  const noGlowRoutes = ["/templates"];
+  const hideGlow = noGlowRoutes.some(path => location.pathname.startsWith(path));
+
   return (
     <>
-      <GlowBackground />
+      {!hideGlow && <GlowBackground />}
 
       <Routes>
         {/* Auth */}
@@ -48,15 +54,17 @@ export default function App() {
         <Route path="/projects/:id/settings"  element={<DashboardLayout><ProjectDetail /></DashboardLayout>} />
 
         {/* Main pages */}
-        <Route path="/create"        element={<DashboardLayout><Create /></DashboardLayout>} />
-        <Route path="/templates"     element={<DashboardLayout><Templates /></DashboardLayout>} />
-        <Route path="/photo-editor"  element={<DashboardLayout><PhotoEditor /></DashboardLayout>} />
-        <Route path="/reel-editor"   element={<DashboardLayout><ReelEditor /></DashboardLayout>} />
-        <Route path="/team"          element={<DashboardLayout><Team /></DashboardLayout>} />
+        <Route path="/create"       element={<DashboardLayout><Create /></DashboardLayout>} />
+        <Route path="/templates"    element={<DashboardLayout><Templates /></DashboardLayout>} />
+        <Route path="/global-templates" element={<DashboardLayout><GlobalTemplates /></DashboardLayout>} />
+        <Route path="/templates/editor/:templateId" element={<TemplateEditor />} />
+        <Route path="/photo-editor" element={<DashboardLayout><PhotoEditor /></DashboardLayout>} />
+        <Route path="/reel-editor"  element={<DashboardLayout><ReelEditor /></DashboardLayout>} />
+        <Route path="/team"         element={<DashboardLayout><Team /></DashboardLayout>} />
         <Route path="/notifications" element={<DashboardLayout><Notifications /></DashboardLayout>} />
-        <Route path="/subscription"  element={<DashboardLayout><Subscription /></DashboardLayout>} />
-        <Route path="/settings"      element={<DashboardLayout><Settings /></DashboardLayout>} />
-        <Route path="/analytics"     element={<DashboardLayout><Analytics /></DashboardLayout>} />
+        <Route path="/subscription" element={<DashboardLayout><Subscription /></DashboardLayout>} />
+        <Route path="/settings"     element={<DashboardLayout><Settings /></DashboardLayout>} />
+        <Route path="/analytics"    element={<DashboardLayout><Analytics /></DashboardLayout>} />
 
         {/* Profile + sub-routes */}
         <Route path="/profile"               element={<DashboardLayout><Profile /></DashboardLayout>} />
